@@ -1,5 +1,4 @@
 const { api, tracer } = require('./tracing')('dummy-server');
-const logEntry = require('./logging')();
 const { uniqueNamesGenerator, starWars, colors } = require('unique-names-generator');
 
 const endpoints = [
@@ -83,11 +82,7 @@ async function dummyApiCall() {
 
         requestSpan.setAttribute('entity', entity);
 
-        logEntry({
-            level: 'info',
-            job: `dummy-server`,
-            message: `traceID=${traceId} endpoint=${endpoint} method=${method} entity="${entity}"`,
-        });
+        console.log(`traceID=${traceId} endpoint=${endpoint} method=${method} entity="${entity}"`);
 
         // Create a new span to process the request - wait anywhere between 1 and 10 ms to do this
         const processSpan = createSpan('request_processed', endpoint, method);
@@ -124,11 +119,7 @@ async function dummyApiCall() {
                             'db.error': 'INVALID_DATA',
                             'db.error_message': 'Invalid data sent to Database',
                         });
-                        logEntry({
-                            level: 'error',
-                            job: `dummy-server`,
-                            message: `traceID=${traceId} entity="${entity}" databaseError="Invalid data sent to Database"`,
-                        });
+                        console.log(`traceID=${traceId} entity="${entity}" databaseError="Invalid data sent to Database"`);
                     }
                     dbSpan.setStatus({ code: spanStatus });
                     dataSpan.setStatus({ code: spanStatus });

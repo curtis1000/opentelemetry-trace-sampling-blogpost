@@ -22,7 +22,10 @@ module.exports = (serviceName) => {
   // Create a tracer provider
   const provider = new NodeTracerProvider({
     resource: new Resource({
+      [SemanticResourceAttributes.DEPLOYMENT_ENVIRONMENT]: process.env.DEPLOYMENT_ENVIRONMENT,
       [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
+      [SemanticResourceAttributes.K8S_NAMESPACE_NAME]: process.env.K8S_NAMESPACE_NAME,
+      [SemanticResourceAttributes.K8S_POD_NAME]: process.env.K8S_POD_NAME,
     }),
   });
 

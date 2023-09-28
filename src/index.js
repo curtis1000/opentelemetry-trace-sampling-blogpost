@@ -1,4 +1,4 @@
-const { api, tracer } = require('./tracing')('dummy-server');
+const { api, tracer } = require('./tracing')(process.env.K8S_DEPLOYMENT_NAME);
 const { uniqueNamesGenerator, starWars, colors } = require('unique-names-generator');
 
 const endpoints = [
@@ -60,8 +60,6 @@ const createSpan = (name, target, method) => {
     const newSpan = tracer.startSpan(name);
     newSpan.setAttribute('http.target', target);
     newSpan.setAttribute('http.method', method);
-    newSpan.setAttribute('job', 'dummy-server');
-
     return newSpan;
 };
 

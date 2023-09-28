@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trace-sampling-example
+  namespace: otlp-examples
+  labels:
+    app: trace-sampling-example
+spec:
+  selector:
+    matchLabels:
+      app: trace-sampling-example
+  template:
+    metadata:
+      labels:
+        app: trace-sampling-example
+    spec:
+      containers:
+      - image: docker.io/curtis1000/trace-sampling-dummy-server:0.3
+        imagePullPolicy: IfNotPresent
+        name: app
+        env:
+#       - name: OTLP_COLLECTOR_HOST_HTTP
+#         value: "http://<fill this in>:4318"
+        - name: DEPLOYMENT_ENVIRONMENT
+          value: "staging"
+        - name: K8S_NAMESPACE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: K8S_DEPLOYMENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.labels['app']
+        - name: K8S_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name

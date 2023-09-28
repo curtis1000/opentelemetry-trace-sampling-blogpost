@@ -152,9 +152,6 @@ async function dummyApiCall() {
 
 // Kick off several timers each of which simulate making a call to an HTTP server
 (() => {
-    setInterval(() => dummyApiCall(), 500);
-    setInterval(() => dummyApiCall(), 1000);
-    setInterval(() => dummyApiCall(), 2000);
-    setInterval(() => dummyApiCall(), 3000);
-    setInterval(() => dummyApiCall(), 4000);
+    setInterval(() => dummyApiCall(), 11000);
+    setInterval(() => dummyApiCall(), 24000);
 })();

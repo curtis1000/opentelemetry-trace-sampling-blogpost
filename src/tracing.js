@@ -16,7 +16,7 @@ module.exports = (serviceName) => {
   let W3CTraceContextPropagator;
 
   const options = {
-    url: process.env.OTEL_COLLECTOR + '/v1/traces',
+    url: process.env.OTLP_COLLECTOR_HOST_HTTP + '/v1/traces',
   };
 
   // Create a tracer provider
